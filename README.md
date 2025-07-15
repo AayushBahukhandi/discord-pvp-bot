@@ -1,12 +1,16 @@
-# Discord Bot v2
+# Discord PvP Bot
 
-A Discord bot built with Discord.js that provides various utility commands for Discord servers.
+A Discord bot built with Discord.js that provides anime card-based PvP battles and user management for Discord servers.
 
 ## Features
 
 - **Ping Command**: Check bot latency
 - **Hi Command**: Greet users
-- **User Info Command**: Display user information
+- **User Info Command**: Display user information and register them in the PvP system
+- **Profile Command**: View PvP stats and user profile
+- **Leaderboard Command**: View top players in the PvP system
+- **REST API**: Full API for card management and user data
+- **Database Integration**: Supabase database for persistent data storage
 
 ## Prerequisites
 
@@ -14,6 +18,7 @@ A Discord bot built with Discord.js that provides various utility commands for D
 - npm (Node Package Manager)
 - Discord Bot Token
 - Infisical CLI (for environment variable management)
+- Supabase account and project
 
 ## Setup Instructions
 
@@ -52,6 +57,10 @@ npm install
 Set up the following environment variables in your Infisical project:
 
 - `DISCORD_TOKEN`: Your Discord bot token
+- `CLIENT_ID`: Your Discord application client ID
+- `SUPABASE_URL`: Your Supabase project URL
+- `SUPABASE_ANON_KEY`: Your Supabase anon key
+- `API_PORT`: Port for API server (optional, defaults to 3001)
 
 ### 4. Invite Bot to Your Server
 
@@ -94,7 +103,32 @@ discord-bot-v2/
 
 - `/ping` - Check bot latency
 - `/hi` - Get a greeting from the bot
-- `/userinfo` - Display information about a user
+- `/register` - Register for PvP system and receive 5 free starter cards
+- `/userinfo` - Display information about a user and register them in PvP system
+- `/profile` - View your PvP profile and stats
+- `/cards` - View your anime card collection (with pagination)
+- `/leaderboard` - View the PvP leaderboard
+
+## API Endpoints
+
+The bot also runs an Express API server with the following endpoints:
+
+### Cards API
+- `GET /api/cards` - Fetch all cards (supports `?anime=name&limit=50` query params)
+- `GET /api/cards/:id` - Get specific card by ID
+- `POST /api/cards` - Create new card
+- `GET /api/cards/random/:count` - Get random cards for battles
+
+### Users API
+- `POST /api/users/register` - Register user from Discord
+- `GET /api/users/profile/:discordId` - Get user profile with stats
+- `PUT /api/users/stats/:discordId` - Update user stats after battle
+- `GET /api/users/leaderboard` - Get leaderboard
+- `GET /api/users/cards/:discordId` - Get user's card collection (with pagination)
+- `POST /api/users/starter-cards/:discordId` - Give starter cards to user
+
+### Health Check
+- `GET /api/health` - API health check
 
 ## Contributing
 

@@ -2,3 +2,12 @@ node_modules
 .env
 .gemini/
 .infisical.json
+
+# Database and setup files
+*.sql
+database-schema.md
+
+# Development and test files
+test-*.js
+check-*.js
+create-*.js
